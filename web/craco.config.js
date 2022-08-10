@@ -55,10 +55,12 @@ module.exports = {
           ...webpackConfig.plugins,
           new webpack.ProvidePlugin({Buffer: ['buffer', 'Buffer']}),
           new webpack.ProvidePlugin({process: 'process/browser'}),
+          new webpack.ProvidePlugin({fs: 'fs'}),
         ],
         resolve: {
           ...webpackConfig.resolve,
           fallback: {
+            https: require.resolve('https-browserify'),
             stream: require.resolve('stream-browserify'),
             buffer: require.resolve('buffer'),
             path: require.resolve('path-browserify'),

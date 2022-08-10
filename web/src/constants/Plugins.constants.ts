@@ -185,10 +185,18 @@ const OpenAPI: IPlugin = {
   name: SupportedPlugins.OpenAPI,
   title: 'OpenAPI',
   description: 'Define your HTTP request via an OpenAPI definition',
-  isActive: false,
-  stepList: [],
+  isActive: true,
   demoList: [],
   type: TriggerTypes.http,
+  stepList: [
+    ...Default.stepList,
+    {
+      id: 'import-openapi-collection',
+      name: 'Import Open API collection',
+      title: 'Upload Open API collection',
+      component: 'UploadCollection',
+    },
+  ],
 };
 
 export const Plugins: Record<SupportedPlugins, IPlugin> = {
