@@ -19,6 +19,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "7.2.1",
     "@types/jest": "24.9.1",
+    "@types/js-yaml": "4.0.5",
     "@types/openapi-v3": "3.0.0",
     "@types/react": "^17.0.39",
     "@types/react-dom": "16.9.14",
@@ -34,6 +35,7 @@
     "d3-dag": "0.9.1",
     "date-fns": "2.28.0",
     "jmespath": "0.16.0",
+    "js-yaml": "4.1.0",
     "lodash": "4.17.21",
     "openapi": "1.0.1",
     "path-browserify": "1.0.1",
@@ -52,6 +54,7 @@
     "react-syntax-highlighter": "15.5.0",
     "stream-http": "3.2.0",
     "styled-components": "5.3.3",
+    "swagger-client": "3.18.5",
     "typescript": "~4.1.5"
   },
   "scripts": {

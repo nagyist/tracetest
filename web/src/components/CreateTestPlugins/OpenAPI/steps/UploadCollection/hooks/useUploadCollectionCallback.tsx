@@ -1,7 +1,8 @@
 import {RcFile} from 'antd/lib/upload';
 import {useCallback} from 'react';
 import {IPostmanValues, TDraftTestForm} from 'types/Test.types';
-import SwaggerParser from '@apidevtools/swagger-parser';
+import SwaggerClient from 'swagger-client';
+import yaml from 'js-yaml';
 
 export function useUploadCollectionCallback(form: TDraftTestForm<IPostmanValues>): (file?: RcFile) => void {
   return useCallback(
@@ -10,8 +11,10 @@ export function useUploadCollectionCallback(form: TDraftTestForm<IPostmanValues>
         const contents = await file?.text();
 
         if (contents) {
-          let api = await SwaggerParser.validate(contents);
-          console.log('API name: %s, Version: %s', api.info.title, api.info.version);
+          const doc = yaml.load(contents);
+          console.log(doc);
+          const result = await new SwaggerClient({spec: doc});
+          console.log(result);
 
           // const collection = new Collection(JSON.parse(contents));
           // form.setFieldsValue({

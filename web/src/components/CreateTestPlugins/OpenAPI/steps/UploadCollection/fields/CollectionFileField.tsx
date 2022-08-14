@@ -14,6 +14,10 @@ export const CollectionFileField = ({form}: IProps): React.ReactElement => (
     name="collectionFile"
     label="Upload Postman Collection"
   >
-    <RequestDetailsFileInput data-cy="collectionFile" accept=".yaml" onChange={useUploadCollectionCallback(form)} />
+    <RequestDetailsFileInput
+      data-cy="collectionFile"
+      accept=".yaml,.json"
+      onChange={useUploadCollectionCallback(form)}
+    />
   </Form.Item>
 );
