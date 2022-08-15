@@ -2,10 +2,9 @@ import {Form} from 'antd';
 import {RcFile} from 'antd/lib/upload';
 import {VariableScope} from 'postman-collection';
 import {useCallback} from 'react';
-import PostmanService from 'services/Triggers/Postman.service';
-import {IPostmanValues, TDraftTestForm} from 'types/Test.types';
+import {IOpenAPIValues, TDraftTestForm} from 'types/Test.types';
 
-export function useUploadEnvFileCallback(form: TDraftTestForm<IPostmanValues>): (file?: RcFile) => Promise<void> {
+export function useUploadEnvFileCallback(form: TDraftTestForm<IOpenAPIValues>): (file?: RcFile) => Promise<void> {
   const collectionTest = Form.useWatch('collectionTest');
   const requests = Form.useWatch('requests');
   return useCallback(
@@ -16,7 +15,7 @@ export function useUploadEnvFileCallback(form: TDraftTestForm<IPostmanValues>): 
           const variables = new VariableScope(JSON.parse(contents))?.values?.map(d => d) || [];
           form.setFieldsValue({requests, variables});
           if (collectionTest) {
-            await PostmanService.updateForm(requests, variables, collectionTest, form);
+            // await PostmanService.updateForm(requests, variables, collectionTest, form);
           }
         }
       } catch (r) {

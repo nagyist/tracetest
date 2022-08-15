@@ -1,5 +1,5 @@
-import {Collection, Item, ItemGroup, Request, RequestAuthDefinition, VariableDefinition} from 'postman-collection';
 import {HTTP_METHOD} from 'constants/Common.constants';
+import {Collection, Item, ItemGroup, Request, RequestAuthDefinition, VariableDefinition} from 'postman-collection';
 import {IPostmanValues, ITriggerService, TDraftTestForm, TRequestAuth} from 'types/Test.types';
 import Validator from '../../utils/Validator';
 import HttpService from './Http.service';
@@ -25,9 +25,16 @@ interface IPostmanTriggerService extends ITriggerService {
   ): void;
   flattenCollectionItemsIntoRequestDefinition(structure: Item | ItemGroup<Item>): RequestDefinitionExtended[];
   getRequestsFromCollection(collection: Collection): RequestDefinitionExtended[];
+  getRequestsFromOpenAPI(spec: any): any[];
   substituteVariable(variables: VariableDefinition[], value: string | undefined): any;
   translateType(type: NonNullable<RequestAuthDefinition['type']>): AuthType | undefined;
   transformAuthSettings(request: RequestDefinitionExtended, variables: VariableDefinition[]): TRequestAuth;
+}
+
+function sdfsdfsfd(get: any) {
+  return {
+    url: 'sdkjf',
+  };
 }
 
 const Postman = (): IPostmanTriggerService => ({
@@ -80,6 +87,26 @@ const Postman = (): IPostmanTriggerService => ({
             .flat()
         : [];
     return [...itemRequest, ...groupRequest];
+  },
+  getRequestsFromOpenAPI(collection: any) {
+    try {
+      console.log(collection);
+      console.log(collection.paths);
+      let message: any[] = Object.keys(collection.paths).flatMap(k => {
+        console.log(k);
+        return [
+          // k.get ? sdfsdfsfd(k.get) : undefined,
+          // k.post ? sdfsdfsfd(k.post) : undefined,
+          // k.delete ? sdfsdfsfd(k.delete) : undefined,
+          // k.update ? sdfsdfsfd(k.update) : undefined,
+        ].filter(d => !d);
+      });
+      console.log(message);
+      console.log(Object.values(collection.paths));
+      return message;
+    } catch (e) {
+      return [];
+    }
   },
   getRequestsFromCollection(collection) {
     try {

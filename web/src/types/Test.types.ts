@@ -74,6 +74,19 @@ export interface RequestDefinitionExtended extends Request {
   name: string;
 }
 
+interface IOpenApiDefinition {
+  name: string;
+  method: string;
+  url: string;
+}
+
+export interface IOpenAPIValues extends IHttpValues {
+  collectionFile?: File;
+  envFile?: File;
+  collectionTest?: string;
+  requests: IOpenApiDefinition[];
+  variables: VariableDefinition[];
+}
 export interface IPostmanValues extends IHttpValues {
   collectionFile?: File;
   envFile?: File;

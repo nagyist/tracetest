@@ -1,5 +1,5 @@
 import {Col, Form, Input, Row} from 'antd';
-import {IPostmanValues, TDraftTestForm} from 'types/Test.types';
+import {IOpenAPIValues, TDraftTestForm} from 'types/Test.types';
 import RequestDetailsAuthInput from '../../../Rest/steps/RequestDetails/RequestDetailsAuthInput/RequestDetailsAuthInput';
 import RequestDetailsHeadersInput from '../../../Rest/steps/RequestDetails/RequestDetailsHeadersInput';
 import RequestDetailsUrlInput from '../../../Rest/steps/RequestDetails/RequestDetailsUrlInput';
@@ -10,7 +10,7 @@ import {SelectTestFromCollection} from './fields/SelectTestFromCollection';
 export const FORM_ID = 'upload-collection-test';
 
 interface IProps {
-  form: TDraftTestForm<IPostmanValues>;
+  form: TDraftTestForm<IOpenAPIValues>;
 }
 
 const UploadCollectionForm = ({form}: IProps) => {

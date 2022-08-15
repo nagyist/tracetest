@@ -1,11 +1,11 @@
 import {Form, Select} from 'antd';
 import {useWatch} from 'antd/es/form/Form';
 import {RequestDefinitionExtended} from 'services/Triggers/Postman.service';
-import {IPostmanValues, TDraftTestForm} from 'types/Test.types';
+import {IOpenAPIValues, TDraftTestForm} from 'types/Test.types';
 import {useSelectTestCallback} from '../hooks/useSelectTestCallback';
 
 interface IProps {
-  form: TDraftTestForm<IPostmanValues>;
+  form: TDraftTestForm<IOpenAPIValues>;
 }
 
 export const SelectTestFromCollection = ({form}: IProps) => {

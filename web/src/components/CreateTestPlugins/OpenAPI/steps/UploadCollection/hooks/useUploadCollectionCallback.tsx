@@ -1,10 +1,11 @@
 import {RcFile} from 'antd/lib/upload';
-import {useCallback} from 'react';
-import {IPostmanValues, TDraftTestForm} from 'types/Test.types';
-import SwaggerClient from 'swagger-client';
 import yaml from 'js-yaml';
+import {useCallback} from 'react';
+import SwaggerClient from 'swagger-client';
+import {IOpenAPIValues, TDraftTestForm} from 'types/Test.types';
+import PostmanService from 'services/Triggers/Postman.service';
 
-export function useUploadCollectionCallback(form: TDraftTestForm<IPostmanValues>): (file?: RcFile) => void {
+export function useUploadCollectionCallback(form: TDraftTestForm<IOpenAPIValues>): (file?: RcFile) => void {
   return useCallback(
     async (file?: RcFile) => {
       try {
@@ -16,11 +17,10 @@ export function useUploadCollectionCallback(form: TDraftTestForm<IPostmanValues>
           const result = await new SwaggerClient({spec: doc});
           console.log(result);
 
-          // const collection = new Collection(JSON.parse(contents));
-          // form.setFieldsValue({
-          //   variables: collection.variables.all(),
-          //   requests: PostmanService.getRequestsFromCollection(collection),
-          // });
+          form.setFieldsValue({
+            variables: [],
+            requests: PostmanService.getRequestsFromOpenAPI(result.spec),
+          });
         }
       } catch (r) {
         // eslint-disable-next-line no-console

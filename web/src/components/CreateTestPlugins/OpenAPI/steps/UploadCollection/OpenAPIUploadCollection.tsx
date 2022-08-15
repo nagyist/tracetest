@@ -5,13 +5,13 @@ import CreateStepFooter from 'components/CreateTestSteps/CreateTestStepFooter';
 import {useCallback, useEffect} from 'react';
 import useValidateTestDraft from 'hooks/useValidateTestDraft';
 import {useCreateTest} from 'providers/CreateTest/CreateTest.provider';
-import {IPostmanValues} from 'types/Test.types';
+import {IOpenAPIValues, IPostmanValues} from 'types/Test.types';
 import {HTTP_METHOD} from 'constants/Common.constants';
 import UploadCollectionForm from './UploadCollectionForm';
 import {useUploadCollectionCallback} from './hooks/useUploadCollectionCallback';
 
 const OpenAPIUploadCollection = () => {
-  const [form] = Form.useForm<IPostmanValues>();
+  const [form] = Form.useForm<IOpenAPIValues>();
   const {onNext, pluginName, draftTest} = useCreateTest();
   const {url = '', body = '', method = HTTP_METHOD.GET, collectionFile, collectionTest} = draftTest as IPostmanValues;
 
@@ -19,7 +19,7 @@ const OpenAPIUploadCollection = () => {
   const getCollectionValues = useUploadCollectionCallback(form);
 
   const handleOnSubmit = useCallback(
-    (values: IPostmanValues) => {
+    (values: IOpenAPIValues) => {
       onNext(values);
     },
     [onNext]
@@ -54,7 +54,7 @@ const OpenAPIUploadCollection = () => {
     <Step.Step>
       <Step.FormContainer>
         <Step.Title>Method Selection Information</Step.Title>
-        <Form<IPostmanValues>
+        <Form<IOpenAPIValues>
           autoComplete="off"
           form={form}
           layout="vertical"
