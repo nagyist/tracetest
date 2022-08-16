@@ -10,6 +10,7 @@ interface IProps {
 
 export const SelectTestFromCollection = ({form}: IProps) => {
   const requests = useWatch<RequestDefinitionExtended[]>('requests');
+
   const variables = useWatch<any[]>('variables');
   return (
     <Form.Item

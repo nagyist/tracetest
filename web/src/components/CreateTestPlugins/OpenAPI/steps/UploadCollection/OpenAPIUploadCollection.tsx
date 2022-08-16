@@ -31,7 +31,7 @@ const OpenAPIUploadCollection = () => {
     form.setFieldsValue({url, body, method: method as HTTP_METHOD, collectionFile, collectionTest});
     getCollectionValues(collectionFile as RcFile);
     setIsValid(true);
-  }, [body, form, method, collectionFile, url, collectionTest]);
+  }, [form, url, body, method, collectionFile, collectionTest, getCollectionValues, setIsValid]);
 
   useEffect(() => {
     onRefreshData();
@@ -58,7 +58,7 @@ const OpenAPIUploadCollection = () => {
           autoComplete="off"
           form={form}
           layout="vertical"
-          initialValues={{url: '', requests: [], variables: []}}
+          initialValues={{url: '', requests: [], variables: [], params: {}}}
           onFinish={handleOnSubmit}
           onValuesChange={onValidate}
         >

@@ -1,9 +1,9 @@
 import {RcFile} from 'antd/lib/upload';
 import yaml from 'js-yaml';
 import {useCallback} from 'react';
+import PostmanService from 'services/Triggers/Postman.service';
 import SwaggerClient from 'swagger-client';
 import {IOpenAPIValues, TDraftTestForm} from 'types/Test.types';
-import PostmanService from 'services/Triggers/Postman.service';
 
 export function useUploadCollectionCallback(form: TDraftTestForm<IOpenAPIValues>): (file?: RcFile) => void {
   return useCallback(

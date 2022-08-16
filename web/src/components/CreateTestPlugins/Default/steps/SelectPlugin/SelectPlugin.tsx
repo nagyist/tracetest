@@ -1,10 +1,11 @@
-import {useCallback} from 'react';
-import PluginCard from 'components/PluginCard';
-import {useCreateTest} from 'providers/CreateTest/CreateTest.provider';
-import {Plugins} from 'constants/Plugins.constants';
 import * as Step from 'components/CreateTestPlugins/Step.styled';
-import * as S from './SelectPlugin.styled';
+import PluginCard from 'components/PluginCard';
+import {Plugins} from 'constants/Plugins.constants';
+import {useCreateTest} from 'providers/CreateTest/CreateTest.provider';
+import {useCallback} from 'react';
+
 import CreateStepFooter from '../../../../CreateTestSteps/CreateTestStepFooter';
+import * as S from './SelectPlugin.styled';
 
 const pluginList = Object.values(Plugins);
 

@@ -86,6 +86,7 @@ export interface IOpenAPIValues extends IHttpValues {
   collectionTest?: string;
   requests: IOpenApiDefinition[];
   variables: VariableDefinition[];
+  vars: Record<string, string>;
 }
 export interface IPostmanValues extends IHttpValues {
   collectionFile?: File;
