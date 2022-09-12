@@ -77,18 +77,6 @@ export const TextHolder = styled.div<{$width?: number}>`
   width: ${({$width = 100}) => $width}%;
 `;
 
-export const ValueJson = styled(Typography.Text)`
-  margin-top: 25px;
-  display: block;
-
-  pre {
-    margin: 0;
-    background: ${({theme}) => theme.color.background};
-    border: ${({theme}) => `1px solid ${theme.color.borderLight}`};
-    font-size: ${({theme}) => theme.size.sm};
-  }
-`;
-
 export const HeaderContainer = styled.div`
   align-items: center;
   background-color: ${({theme}) => theme.color.white};
