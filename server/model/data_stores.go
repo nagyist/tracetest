@@ -57,11 +57,10 @@ const (
 )
 
 func DataStoreFromConfig(dsc config.TracingBackendDataStoreConfig) DataStore {
-	var cType openapi.SupportedDataStores
 	ds := DataStore{
-		Type:   cType,
 		Values: DataStoreValues{},
 	}
+
 	switch dsc.Type {
 	case jaeger:
 		ds.Type = openapi.JAEGER
@@ -78,6 +77,7 @@ func DataStoreFromConfig(dsc config.TracingBackendDataStoreConfig) DataStore {
 	ds.Values.Tempo = &dsc.Tempo
 	ds.Values.OpenSearch = &dsc.OpenSearch
 	ds.Values.SignalFx = &dsc.SignalFX
+	ds.Name = string(ds.Type)
 
 	return ds
 }
