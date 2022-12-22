@@ -1,0 +1,10 @@
+type: DataStore
+spec:
+  id: jaeger
+  name: Jaeger
+  type: jaeger
+  isDefault: true
+  jaeger:
+    endpoint: jaeger:16685
+    tls:
+      insecure: true

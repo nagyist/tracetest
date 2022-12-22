@@ -1,0 +1,10 @@
+type: DataStore
+spec:
+  id: opensearch-data-store
+  name: OpenSearch Data Store
+  type: openSearch
+  isDefault: true
+  opensearch:
+    addresses:
+      - http://opensearch:9200
+    index: traces

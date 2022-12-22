@@ -1,0 +1,6 @@
+type: DataStore
+spec:
+  id: collector
+  name: Collector
+  type: otlp
+  isDefault: true

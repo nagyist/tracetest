@@ -1,0 +1,16 @@
+type: Test
+spec:
+  id: haywX65VR
+  name: List tests
+  trigger:
+    type: http
+    httpRequest:
+      url: http://localhost:11633/api/tests
+      method: GET
+  specs:
+    - selector: span[name = "Tracetest trigger"]
+      assertions:
+        - attr:tracetest.selected_spans.count = 1
+    - selector: span[name = "GET /api/tests"]
+      assertions:
+        - attr:http.status = 200

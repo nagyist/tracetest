@@ -1,0 +1,106 @@
+version: "3.2"
+services:
+  tracetest:
+    restart: unless-stopped
+    image: kubeshop/tracetest:latest
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    build:
+      context: ..
+      args:
+        VERSION: dev
+        TRACETEST_ENV: docker-compose
+    volumes:
+      - type: bind
+        source: ./config.tests.yaml
+        target: /app/config.yaml
+    ports:
+      - 11633:11633
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "localhost:11633"]
+      interval: 1s
+      timeout: 3s
+      retries: 60
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"
+      interval: 1s
+      timeout: 5s
+      retries: 60
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.59.0
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+        - "55679:55679"
+        - "4317:4317"
+        - "8888:8888"
+    command:
+        - "--config"
+        - "/otel-local-config.yaml"
+    volumes:
+        - ./collector.config.yaml:/otel-local-config.yaml
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    restart: unless-stopped
+    healthcheck:
+        test: ["CMD", "wget", "--spider", "localhost:16686"]
+        interval: 1s
+        timeout: 3s
+        retries: 60
+    ports:
+        - 16685:16685
+        - 16686:16686
+
+  tempo:
+    image: grafana/tempo:1.5.0
+    command: ["-config.file=/etc/tempo.yaml"]
+    volumes:
+      - ./tempo.config.yaml:/etc/tempo.yaml
+    ports:
+      - 9095:9095
+
+  data-prepper:
+    restart: unless-stopped
+    image: opensearchproject/data-prepper:1.5.1
+    volumes:
+      - ./opensearch/opensearch-analytics.yaml:/usr/share/data-prepper/pipelines.yaml
+      - ./opensearch/opensearch-data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml
+    depends_on:
+      opensearch:
+        condition: service_healthy
+
+  opensearch:
+    image: opensearchproject/opensearch:2.4.1
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+    volumes:
+      - ./opensearch/opensearch.yaml:/usr/share/opensearch/config/opensearch.yml
+    ports:
+      - "9200:9200"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536 # maximum number of open files for the OpenSearch user, set to at least 65536 on modern systems
+        hard: 65536
+    healthcheck:
+      test: curl -s http://localhost:9200 >/dev/null || exit 1
+      interval: 5s
+      timeout: 10s
+      retries: 5

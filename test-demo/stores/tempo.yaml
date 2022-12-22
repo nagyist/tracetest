@@ -1,0 +1,10 @@
+type: DataStore
+spec:
+  id: grafana-tempo
+  name: Grafana Tempo
+  type: tempo
+  isDefault: true
+  tempo:
+    endpoint: tempo:9095
+    tls:
+      insecure: true
